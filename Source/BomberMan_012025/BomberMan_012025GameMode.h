@@ -10,9 +10,12 @@ UCLASS(minimalapi)
 class ABomberMan_012025GameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
 public:
 	ABomberMan_012025GameMode();
+	virtual void BeginPlay() override;
+
+	template<typename T>
+	void SpawnBloque(FVector Location);
 };
 
 
