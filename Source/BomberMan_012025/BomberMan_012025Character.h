@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
-
+#include "Containers/Array.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "BomberMan_012025Character.generated.h"
@@ -19,6 +19,22 @@ class ABomberMan_012025Character : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 public:
+	// Variables para el sistema de doble pulsación
+	float LastKeyPressTime[4];      // 0:A, 1:D, 2:W, 3:S
+	TArray<bool> bKeyPressed;       // Reemplaza bool[4] por TArray<bool>
+	TArray<AActor*> AdjacentBlocks; // Bloques adyacentes
+
+	UFUNCTION()
+	void CheckAdjacentBlocks();
+	UFUNCTION()
+	void DestroyAdjacentBlock(int32 DirectionIndex);
+
+	// Input functions
+	void PressA();
+	void PressD();
+	void PressW();
+	void PressS();
+	void HandleDoublePress(int32 DirectionIndex);
 	ABomberMan_012025Character();
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */

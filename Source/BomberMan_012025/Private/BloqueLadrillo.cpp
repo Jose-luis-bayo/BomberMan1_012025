@@ -21,6 +21,10 @@ ABloqueLadrillo::ABloqueLadrillo()
 	{
 		MeshComp->SetMaterial(0, Material.Object);
 	}
+	MeshComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics); // Habilita colisiones
+	MeshComp->SetCollisionObjectType(ECC_WorldStatic); // Tipo de objeto
+	MeshComp->SetCollisionResponseToAllChannels(ECR_Block); // Bloquea todo por defecto
+	MeshComp->SetGenerateOverlapEvents(true); // Opcional: Para detectar overlaps (ej. explosion
 
 }
 

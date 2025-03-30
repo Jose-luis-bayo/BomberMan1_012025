@@ -14,8 +14,18 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define BOMBERMAN_012025_BomberMan_012025Character_generated_h
 
 #define BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_12_SPARSE_DATA
-#define BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_12_RPC_WRAPPERS
-#define BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_12_RPC_WRAPPERS_NO_PURE_DECLS
+#define BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_12_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execDestroyAdjacentBlock); \
+	DECLARE_FUNCTION(execCheckAdjacentBlocks);
+
+
+#define BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execDestroyAdjacentBlock); \
+	DECLARE_FUNCTION(execCheckAdjacentBlocks);
+
+
 #define BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_12_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABomberMan_012025Character(); \

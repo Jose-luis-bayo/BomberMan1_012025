@@ -20,8 +20,85 @@ void EmptyLinkFunctionForGeneratedCodeBomberMan_012025Character() {}
 	ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 // End Cross Module References
+	DEFINE_FUNCTION(ABomberMan_012025Character::execDestroyAdjacentBlock)
+	{
+		P_GET_PROPERTY(FIntProperty,Z_Param_DirectionIndex);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->DestroyAdjacentBlock(Z_Param_DirectionIndex);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(ABomberMan_012025Character::execCheckAdjacentBlocks)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->CheckAdjacentBlocks();
+		P_NATIVE_END;
+	}
 	void ABomberMan_012025Character::StaticRegisterNativesABomberMan_012025Character()
 	{
+		UClass* Class = ABomberMan_012025Character::StaticClass();
+		static const FNameNativePtrPair Funcs[] = {
+			{ "CheckAdjacentBlocks", &ABomberMan_012025Character::execCheckAdjacentBlocks },
+			{ "DestroyAdjacentBlock", &ABomberMan_012025Character::execDestroyAdjacentBlock },
+		};
+		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_ABomberMan_012025Character_CheckAdjacentBlocks_Statics
+	{
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ABomberMan_012025Character_CheckAdjacentBlocks_Statics::Function_MetaDataParams[] = {
+		{ "Comment", "// Bloques adyacentes\n" },
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+		{ "ToolTip", "Bloques adyacentes" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025Character_CheckAdjacentBlocks_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025Character, nullptr, "CheckAdjacentBlocks", nullptr, nullptr, 0, nullptr, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ABomberMan_012025Character_CheckAdjacentBlocks_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_CheckAdjacentBlocks_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_ABomberMan_012025Character_CheckAdjacentBlocks()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ABomberMan_012025Character_CheckAdjacentBlocks_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics
+	{
+		struct BomberMan_012025Character_eventDestroyAdjacentBlock_Parms
+		{
+			int32 DirectionIndex;
+		};
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_DirectionIndex;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::NewProp_DirectionIndex = { "DirectionIndex", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(BomberMan_012025Character_eventDestroyAdjacentBlock_Parms, DirectionIndex), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::NewProp_DirectionIndex,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025Character, nullptr, "DestroyAdjacentBlock", nullptr, nullptr, sizeof(BomberMan_012025Character_eventDestroyAdjacentBlock_Parms), Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	UClass* Z_Construct_UClass_ABomberMan_012025Character_NoRegister()
 	{
@@ -30,6 +107,7 @@ void EmptyLinkFunctionForGeneratedCodeBomberMan_012025Character() {}
 	struct Z_Construct_UClass_ABomberMan_012025Character_Statics
 	{
 		static UObject* (*const DependentSingletons[])();
+		static const FClassFunctionLinkInfo FuncInfo[];
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
@@ -56,6 +134,10 @@ void EmptyLinkFunctionForGeneratedCodeBomberMan_012025Character() {}
 	UObject* (*const Z_Construct_UClass_ABomberMan_012025Character_Statics::DependentSingletons[])() = {
 		(UObject* (*)())Z_Construct_UClass_ACharacter,
 		(UObject* (*)())Z_Construct_UPackage__Script_BomberMan_012025,
+	};
+	const FClassFunctionLinkInfo Z_Construct_UClass_ABomberMan_012025Character_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_CheckAdjacentBlocks, "CheckAdjacentBlocks" }, // 796703038
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_DestroyAdjacentBlock, "DestroyAdjacentBlock" }, // 2964403038
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ABomberMan_012025Character_Statics::Class_MetaDataParams[] = {
@@ -118,11 +200,11 @@ void EmptyLinkFunctionForGeneratedCodeBomberMan_012025Character() {}
 		"Game",
 		&StaticCppClassTypeInfo,
 		DependentSingletons,
-		nullptr,
+		FuncInfo,
 		Z_Construct_UClass_ABomberMan_012025Character_Statics::PropPointers,
 		nullptr,
 		UE_ARRAY_COUNT(DependentSingletons),
-		0,
+		UE_ARRAY_COUNT(FuncInfo),
 		UE_ARRAY_COUNT(Z_Construct_UClass_ABomberMan_012025Character_Statics::PropPointers),
 		0,
 		0x008000A4u,
@@ -137,7 +219,7 @@ void EmptyLinkFunctionForGeneratedCodeBomberMan_012025Character() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ABomberMan_012025Character, 1747665325);
+	IMPLEMENT_CLASS(ABomberMan_012025Character, 790095598);
 	template<> BOMBERMAN_012025_API UClass* StaticClass<ABomberMan_012025Character>()
 	{
 		return ABomberMan_012025Character::StaticClass();

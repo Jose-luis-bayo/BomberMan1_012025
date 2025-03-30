@@ -43,11 +43,11 @@ void ABomberMan_012025GameMode::BeginPlay()
 		{4, 0, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
 		{4, 0, 0, 0, 0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 4},
 		{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-		{4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
+		{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
 	};
 
-	float BloqueStartX = -100.0f;
-	float BloqueStartY = 370.0f;
+	float BloqueStartX = -1200.0f;
+	float BloqueStartY = -100.0f;
 	float BloqueStartZ = 130.0f;
 	float BloqueOffset = 500.0f;
 

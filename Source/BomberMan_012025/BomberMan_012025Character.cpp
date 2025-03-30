@@ -8,12 +8,19 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Engine/World.h"
+#include "BloqueAcero.h"
+#include "BloqueConcreto.h"
+#include "BloqueLadrillo.h"
+#include "BloqueMadera.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ABomberMan_012025Character
 
 ABomberMan_012025Character::ABomberMan_012025Character()
 {
+	
+	bKeyPressed.Init(false, 4);
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -74,6 +81,10 @@ void ABomberMan_012025Character::SetupPlayerInputComponent(class UInputComponent
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ABomberMan_012025Character::OnResetVR);
+	PlayerInputComponent->BindAction("DestroyLeft", IE_Pressed, this, &ABomberMan_012025Character::PressA);
+	PlayerInputComponent->BindAction("DestroyRight", IE_Pressed, this, &ABomberMan_012025Character::PressD);
+	PlayerInputComponent->BindAction("DestroyForward", IE_Pressed, this, &ABomberMan_012025Character::PressW);
+	PlayerInputComponent->BindAction("DestroyBackward", IE_Pressed, this, &ABomberMan_012025Character::PressS);
 }
 
 
@@ -137,4 +148,120 @@ void ABomberMan_012025Character::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+//Nuevoadyacentetodoborrar si no da
+void ABomberMan_012025Character::CheckAdjacentBlocks()
+{
+	AdjacentBlocks.Empty();
+
+	FVector CharacterLocation = GetActorLocation();
+	float CheckDistance = 150.0f; // Ajusta según el tamaño de tus bloques
+
+	// Direcciones: 0:Izquierda, 1:Derecha, 2:Adelante, 3:Atrás
+	FVector Directions[4] = {
+		FVector(0, -CheckDistance, 0),
+		FVector(0, CheckDistance, 0),
+		FVector(CheckDistance, 0, 0),
+		FVector(-CheckDistance, 0, 0)
+	};
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	for (int i = 0; i < 4; i++)
+	{
+		FHitResult HitResult;
+		FVector EndLocation = CharacterLocation + Directions[i];
+
+		if (GetWorld()->LineTraceSingleByChannel(
+			HitResult,
+			CharacterLocation,
+			EndLocation,
+			ECC_Visibility,
+			QueryParams))
+		{
+			if (HitResult.GetActor()->IsA(ABloqueMadera::StaticClass()) ||
+				HitResult.GetActor()->IsA(ABloqueLadrillo::StaticClass()) ||
+				HitResult.GetActor()->IsA(ABloqueConcreto::StaticClass()) ||
+				HitResult.GetActor()->IsA(ABloqueAcero::StaticClass()))
+			{
+				AdjacentBlocks.Add(HitResult.GetActor());
+			}
+		}
+	}
+}
+
+void ABomberMan_012025Character::DestroyAdjacentBlock(int32 DirectionIndex)
+{
+	if (AdjacentBlocks.IsValidIndex(DirectionIndex))
+	{
+		AdjacentBlocks[DirectionIndex]->Destroy();
+		AdjacentBlocks.RemoveAt(DirectionIndex);
+	}
+}
+
+// Funciones de input
+void ABomberMan_012025Character::PressA()
+{
+	CheckAdjacentBlocks();
+	HandleDoublePress(0);
+}
+
+void ABomberMan_012025Character::PressD()
+{
+	CheckAdjacentBlocks();
+	HandleDoublePress(1);
+}
+
+void ABomberMan_012025Character::PressW()
+{
+	CheckAdjacentBlocks();
+	HandleDoublePress(2);
+}
+
+void ABomberMan_012025Character::PressS()
+{
+	CheckAdjacentBlocks();
+	HandleDoublePress(3);
+}
+
+void ABomberMan_012025Character::HandleDoublePress(int32 DirectionIndex)
+{
+	float CurrentTime = GetWorld()->GetTimeSeconds();
+    float DoublePressDelay = 0.3f;
+
+    if (bKeyPressed[DirectionIndex] && 
+        (CurrentTime - LastKeyPressTime[DirectionIndex] < DoublePressDelay))
+    {
+        if (AdjacentBlocks.IsValidIndex(DirectionIndex) && AdjacentBlocks[DirectionIndex])
+        {
+            AdjacentBlocks[DirectionIndex]->Destroy();
+            AdjacentBlocks[DirectionIndex] = nullptr;
+            GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, 
+                FString::Printf(TEXT("Bloque destruido en dirección %d"), DirectionIndex));
+        }
+        bKeyPressed[DirectionIndex] = false;
+    }
+    else
+    {
+        bKeyPressed[DirectionIndex] = true;
+        LastKeyPressTime[DirectionIndex] = CurrentTime;
+    }
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow,
+		FString::Printf(TEXT("Tecla presionada: Índice %d"), DirectionIndex));
+	FString DirectionNames[4] = { "A (Izquierda)", "D (Derecha)", "W (Adelante)", "S (Atrás)" };
+    GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, 
+        FString::Printf(TEXT("Tecla presionada: %s, Índice: %d"), *DirectionNames[DirectionIndex], DirectionIndex));
+
+    if (bKeyPressed[DirectionIndex] && (CurrentTime - LastKeyPressTime[DirectionIndex] < DoublePressDelay)) {
+        if (AdjacentBlocks.IsValidIndex(DirectionIndex)) { // ¡Verifica que el índice existe!
+            GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, 
+                FString::Printf(TEXT("¡Destruyendo bloque en dirección %s!"), *DirectionNames[DirectionIndex]));
+            DestroyAdjacentBlock(DirectionIndex);
+        }
+        bKeyPressed[DirectionIndex] = false;
+    } else {
+        bKeyPressed[DirectionIndex] = true;
+        LastKeyPressTime[DirectionIndex] = CurrentTime;
+    }
 }
